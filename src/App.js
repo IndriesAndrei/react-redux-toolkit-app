@@ -1,22 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { decrement, increment, incrementByAmount } from './redux/counter';
 
 function App() {
+  // const [count, setCount] = useState(0);
+
+  // using a React Hook useSelector from React Redux
+  // getting count variable from counter.js file
+  // getting counter reducer from configureStore.js file
+  const { count } = useSelector((state) => state.counter)
+
+  // to can use the React Redux Toolkit actions we need to dispatch
+  const dispatch = useDispatch();
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>The count is: {count}</h1>
+        <button onClick={() => dispatch(increment())}>increment</button>
+        <button onClick={() => dispatch(decrement())}>decrement</button>
+        <button onClick={() => dispatch(incrementByAmount(33))}>Increment by 33</button>
       </header>
     </div>
   );
